@@ -3,7 +3,7 @@ require("dotenv").config();
 module.exports = {
   async getContractABI(address) {
     const response = await fetch(
-      `https://api.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${process.env.ETHERSCAN_API_KEY}`
+      `https://api-sepolia.etherscan.io/api?module=contract&action=getabi&address=${address}&apikey=${process.env.ETHERSCAN_API_KEY}`
     );
     const data = await response.json();
 

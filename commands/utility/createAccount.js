@@ -1,4 +1,3 @@
-// const { SlashCommandBuilder } = require("discord.js");
 // const { Web3AuthNoModal } = require("@web3auth/no-modal");
 // const { EthereumPrivateKeyProvider } = require("@web3auth/ethereum-provider");
 
@@ -23,15 +22,20 @@
 //   privateKeyProvider,
 // });
 
-// module.exports = {
-//   data: new SlashCommandBuilder()
-//     .setName("createAccount")
-//     .setDescription("Creates a smart wallet account for the user."),
-//   async execute(interaction) {
-//     // interaction.user is the object representing the User who ran the command
-//     // interaction.member is the GuildMember object, which represents the user in the specific guild
-//     await interaction.reply(
-//       `This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`
-//     );
-//   },
-// };
+const { SlashCommandBuilder } = require("discord.js");
+const { Wallet } = require("ethers");
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("createaccount")
+    .setDescription("Creates a smart wallet account for the user."),
+  async execute(interaction) {
+    // interaction.user is the object representing the User who ran the command
+    // interaction.member is the GuildMember object, which represents the user in the specific guild
+    await interaction.user.send("Creating account...");
+
+    // await interaction.reply(
+    //   `This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`
+    // );
+  },
+};
