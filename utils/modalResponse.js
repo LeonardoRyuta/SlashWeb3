@@ -7,6 +7,8 @@ const {
 } = require("discord.js");
 const { getContractABI } = require("./contractsWizard");
 const fs = require("fs");
+const { Wallet, providers } = require("ethers");
+require("dotenv").config();
 
 module.exports = {
   async modalResponse(interaction) {
@@ -44,6 +46,28 @@ module.exports = {
       case "verification-modal":
         response = interaction.fields.getTextInputValue("verification-input");
         interaction.reply(`Yay, your answer is submitted: "${response}"`);
+        break;
+      case interaction.customId.startsWith("contractInteract-modal-")
+        ? interaction.customId
+        : "":
+        const address = interaction.customId.split("-")[2];
+        const methodName = interaction.customId.split("-")[3];
+
+        const abi = JSON.parse(fs.readFileSync(address + ".json", "utf-8"));
+
+        const method = abi.filter((item) => item.name === method);
+
+        const inputs = method[0].inputs.map((input) =>
+          interaction.fields.getTextInputValue(input.name)
+        );
+
+        console.log("menmonic", process.env.MNEMONIC);
+        const wallet = Wallet.fromPhrase(process.env.MNEMONIC);
+
+        const provider = new providers.JSONRPCProvider(
+          "https://rpc2.sepolia.org"
+        );
+
         break;
       default:
         break;

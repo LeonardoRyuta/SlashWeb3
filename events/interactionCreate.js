@@ -43,7 +43,7 @@ module.exports = {
 
         if (method[0].inputs.length > 0) {
           modal
-            .setCustomId("contractInteract-modal")
+            .setCustomId("contractInteract-modal-" + address + "-" + response)
             .setTitle("You are interacting with a smart contract")
             .addComponents(
               method[0].inputs.map((input) =>
